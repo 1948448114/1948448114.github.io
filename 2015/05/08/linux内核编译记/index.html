@@ -4,22 +4,40 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>SOLE</title>
+    <title>linux内核编译记 | SOLE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Liang Jie">
     
 
     
-    <meta name="description" content="奋斗吧,少年">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SOLE">
-<meta property="og:url" content="http://github.com/1948448114/1948448114.github.io/index.html">
+    <meta name="description" content="前段时间学校某课程（你猜啥课程~）要求进行简单的linux内核编译，并添加自己的系统调用，对于Linux小白来说这可不是件简单的事，的确话费不少时间和精力。趁此博客终于过了之际，来记录一下~
+0x01 实验前的准备环境说明：
+
+Ubuntu10.04(过高版本刚开始编译各种错误)
+linux-2.6.39(差不多这个版本编译起来成功概率大点吧oo)
+
+1apt-get install build-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux内核编译记">
+<meta property="og:url" content="http://github.com/1948448114/1948448114.github.io/2015/05/08/linux内核编译记/index.html">
 <meta property="og:site_name" content="SOLE">
-<meta property="og:description" content="奋斗吧,少年">
+<meta property="og:description" content="前段时间学校某课程（你猜啥课程~）要求进行简单的linux内核编译，并添加自己的系统调用，对于Linux小白来说这可不是件简单的事，的确话费不少时间和精力。趁此博客终于过了之际，来记录一下~
+0x01 实验前的准备环境说明：
+
+Ubuntu10.04(过高版本刚开始编译各种错误)
+linux-2.6.39(差不多这个版本编译起来成功概率大点吧oo)
+
+1apt-get install build-">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SOLE">
-<meta name="twitter:description" content="奋斗吧,少年">
+<meta name="twitter:title" content="linux内核编译记">
+<meta name="twitter:description" content="前段时间学校某课程（你猜啥课程~）要求进行简单的linux内核编译，并添加自己的系统调用，对于Linux小白来说这可不是件简单的事，的确话费不少时间和精力。趁此博客终于过了之际，来记录一下~
+0x01 实验前的准备环境说明：
+
+Ubuntu10.04(过高版本刚开始编译各种错误)
+linux-2.6.39(差不多这个版本编译起来成功概率大点吧oo)
+
+1apt-get install build-">
 
     
     <link rel="alternative" href="/atom.xml" title="SOLE" type="application/atom+xml">
@@ -73,12 +91,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/05/08/linux内核编译记/" title="linux内核编译记" itemprop="url">linux内核编译记</a>
@@ -92,9 +108,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>前段时间学校某课程（你猜啥课程~）要求进行简单的linux内核编译，并添加自己的系统调用，对于Linux小白来说这可不是件简单的事，的确话费不少时间和精力。趁此博客终于过了之际，来记录一下~</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01_实验前的准备"><span class="toc-number">1.</span> <span class="toc-text">0x01 实验前的准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02_添加系统调用"><span class="toc-number">2.</span> <span class="toc-text">0x02 添加系统调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step1"><span class="toc-number">2.1.</span> <span class="toc-text">step1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step2"><span class="toc-number">2.2.</span> <span class="toc-text">step2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step3"><span class="toc-number">2.3.</span> <span class="toc-text">step3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03_开始编译啦"><span class="toc-number">3.</span> <span class="toc-text">0x03 开始编译啦</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step1-1"><span class="toc-number">3.1.</span> <span class="toc-text">step1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step2-1"><span class="toc-number">3.2.</span> <span class="toc-text">step2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step3-1"><span class="toc-number">3.3.</span> <span class="toc-text">step3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04_编写测试函数及总结"><span class="toc-number">4.</span> <span class="toc-text">0x04 编写测试函数及总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol>
+		
+		</div>
+		
+		<p>前段时间学校某课程（你猜啥课程~）要求进行简单的linux内核编译，并添加自己的系统调用，对于Linux小白来说这可不是件简单的事，的确话费不少时间和精力。趁此博客终于过了之际，来记录一下~</p>
 <h2 id="0x01_实验前的准备">0x01 实验前的准备</h2><p>环境说明：</p>
 <ul>
 <li>Ubuntu10.04(过高版本刚开始编译各种错误)</li>
@@ -141,14 +164,9 @@
 <h2 id="0x04_编写测试函数及总结">0x04 编写测试函数及总结</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  syscall(<span class="number">223</span>,<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>写完这个测试函数，再用gcc命令编译一下，再dmesg -c一下，你猜会看到啥？哈哈，就是熟悉的“hello world”，听说你不信？那就赶紧自己去试试吧~</p>
 <h2 id="结语">结语</h2><p>杀死无数脑细胞的任务总算完成了，发现segmentfault写起来还是蛮舒心的，对了，要是第一次编译成功后，后面修改了系统调用后，直接从make modules开始做起就好，这样就能省不少时间，不然那个编译时间。。。谁用谁知道啊真的是。。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -156,82 +174,43 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://github.com/1948448114/1948448114.github.io/2015/05/08/linux内核编译记/" data-title="linux内核编译记 | SOLE" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/06/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Liang Jie" target="_blank" itemprop="author">Liang Jie</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-06T06:59:32.000Z" itemprop="datePublished"> 发表于 2015-05-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/05/06/hello-world/"  title="Hello World">
+ <strong>下一篇：</strong><br/> 
+ <span>Hello World
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
+	
 
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01_实验前的准备"><span class="toc-number">1.</span> <span class="toc-text">0x01 实验前的准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02_添加系统调用"><span class="toc-number">2.</span> <span class="toc-text">0x02 添加系统调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step1"><span class="toc-number">2.1.</span> <span class="toc-text">step1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step2"><span class="toc-number">2.2.</span> <span class="toc-text">step2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step3"><span class="toc-number">2.3.</span> <span class="toc-text">step3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03_开始编译啦"><span class="toc-number">3.</span> <span class="toc-text">0x03 开始编译啦</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step1-1"><span class="toc-number">3.1.</span> <span class="toc-text">step1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step2-1"><span class="toc-number">3.2.</span> <span class="toc-text">step2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step3-1"><span class="toc-number">3.3.</span> <span class="toc-text">step3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04_编写测试函数及总结"><span class="toc-number">4.</span> <span class="toc-text">0x04 编写测试函数及总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -350,12 +329,69 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
 
@@ -416,4 +452,4 @@ $(document).ready(function(){
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
