@@ -163,7 +163,7 @@ linux-2.6.39(差不多这个版本编译起来成功概率大点吧oo)
 <p>以上所以命令只针对我这个内核版本，如若是其他版本，可以照这个更改~~</p>
 <h2 id="0x04_编写测试函数及总结">0x04 编写测试函数及总结</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  syscall(<span class="number">223</span>,<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>写完这个测试函数，再用gcc命令编译一下，再dmesg -c一下，你猜会看到啥？哈哈，就是熟悉的“hello world”，听说你不信？那就赶紧自己去试试吧~</p>
-<h2 id="结语">结语</h2><p>杀死无数脑细胞的任务总算完成了，发现segmentfault写起来还是蛮舒心的，对了，要是第一次编译成功后，后面修改了系统调用后，直接从make modules开始做起就好，这样就能省不少时间，不然那个编译时间。。。谁用谁知道啊真的是。。</p>
+<h2 id="结语">结语</h2><p>杀死无数脑细胞的任务总算完成了，对了，要是第一次编译成功后，后面修改了系统调用后，直接从make modules开始做起就好，这样就能省不少时间，不然那个编译时间。。。谁用谁知道啊真的是。。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -187,6 +187,19 @@ linux-2.6.39(差不多这个版本编译起来成功概率大点吧oo)
    	       
 	</article>
 	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/10/生产者-消费者编程实现/" title="生产者-消费者编程实现">
+  <strong>上一篇：</strong><br/>
+  <span>
+  生产者-消费者编程实现</span>
+</a>
+</div>
+
+
+</nav>
+
 	
 
 </div>  

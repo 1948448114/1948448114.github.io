@@ -4,22 +4,28 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>SOLE</title>
+    <title>生产者-消费者编程实现 | SOLE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Liang Jie">
     
 
     
-    <meta name="description" content="奋斗吧,少年">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SOLE">
-<meta property="og:url" content="http://github.com/1948448114/1948448114.github.io/index.html">
+    <meta name="description" content="又是某课程的实验（感觉好烦啊啊。。。），这次终于不用编译内核了，但是但是，他让我们写多线程。好吧，那就写写写，但是等等。。他要我们实现生产者-消费者同步问题，要用信号量解决同步问题。。这几个都是什么鬼。。好吧，不懂的自行google吧。  话不多说，直接上代码，目前只是简易实现，可能会有问题，大家可以指出啊，我虚心受教~~
+
+windows线程123456789101112131415161718">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生产者-消费者编程实现">
+<meta property="og:url" content="http://github.com/1948448114/1948448114.github.io/2015/05/10/生产者-消费者编程实现/index.html">
 <meta property="og:site_name" content="SOLE">
-<meta property="og:description" content="奋斗吧,少年">
+<meta property="og:description" content="又是某课程的实验（感觉好烦啊啊。。。），这次终于不用编译内核了，但是但是，他让我们写多线程。好吧，那就写写写，但是等等。。他要我们实现生产者-消费者同步问题，要用信号量解决同步问题。。这几个都是什么鬼。。好吧，不懂的自行google吧。  话不多说，直接上代码，目前只是简易实现，可能会有问题，大家可以指出啊，我虚心受教~~
+
+windows线程123456789101112131415161718">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SOLE">
-<meta name="twitter:description" content="奋斗吧,少年">
+<meta name="twitter:title" content="生产者-消费者编程实现">
+<meta name="twitter:description" content="又是某课程的实验（感觉好烦啊啊。。。），这次终于不用编译内核了，但是但是，他让我们写多线程。好吧，那就写写写，但是等等。。他要我们实现生产者-消费者同步问题，要用信号量解决同步问题。。这几个都是什么鬼。。好吧，不懂的自行google吧。  话不多说，直接上代码，目前只是简易实现，可能会有问题，大家可以指出啊，我虚心受教~~
+
+windows线程123456789101112131415161718">
 
     
     <link rel="alternative" href="/atom.xml" title="SOLE" type="application/atom+xml">
@@ -73,12 +79,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/05/10/生产者-消费者编程实现/" title="生产者-消费者编程实现" itemprop="url">生产者-消费者编程实现</a>
@@ -92,9 +96,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>  又是某课程的实验（感觉好烦啊啊。。。），这次终于不用编译内核了，但是但是，他让我们写多线程。好吧，那就写写写，但是等等。。他要我们实现生产者-消费者同步问题，要用信号量解决同步问题。。这几个都是什么鬼。。好吧，不懂的自行google吧。<br>  话不多说，直接上代码，目前只是简易实现，可能会有问题，大家可以指出啊，我虚心受教~~</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows线程"><span class="toc-number">1.</span> <span class="toc-text">windows线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux"><span class="toc-number">2.</span> <span class="toc-text">Linux</span></a></li></ol>
+		
+		</div>
+		
+		<p>  又是某课程的实验（感觉好烦啊啊。。。），这次终于不用编译内核了，但是但是，他让我们写多线程。好吧，那就写写写，但是等等。。他要我们实现生产者-消费者同步问题，要用信号量解决同步问题。。这几个都是什么鬼。。好吧，不懂的自行google吧。<br>  话不多说，直接上代码，目前只是简易实现，可能会有问题，大家可以指出啊，我虚心受教~~</p>
 <hr>
 <h2 id="windows线程">windows线程</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//包含必须头文件	</span></span><br><span class="line"></span><br><span class="line"> #<span class="keyword">include</span>&lt;windows.h&gt;</span><br><span class="line"></span><br><span class="line"> #<span class="keyword">include</span>&lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line"> #<span class="keyword">include</span>&lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line"> #<span class="keyword">include</span> &lt;time.h&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment">//定义相关结构</span></span><br><span class="line"></span><br><span class="line"> #define BUFFER_SIZE <span class="number">5</span></span><br><span class="line">typedef <span class="keyword">int</span> buffer_item;</span><br><span class="line"></span><br><span class="line"><span class="comment">//相关信号量的声明以及buffer的声明</span></span><br><span class="line">HANDLE mutex ;</span><br><span class="line"></span><br><span class="line">HANDLE empty,full;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">buffer_item buffer[BUFFER_SIZE]=&#123;-<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向buffer中插入元素函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> insert_item(buffer_item item)&#123;</span><br><span class="line"></span><br><span class="line">	WaitForSingleObject(empty,INFINITE);</span><br><span class="line">	WaitForSingleObject(mutex,INFINITE);</span><br><span class="line">	<span class="keyword">int</span> state = <span class="number">0</span>;</span><br><span class="line">	printf(<span class="string">"now count is %d in insert\n"</span>,<span class="keyword">count</span>);</span><br><span class="line">	<span class="keyword">if</span>(buffer[<span class="keyword">count</span>]!=-<span class="number">1</span>)</span><br><span class="line">		state = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">	buffer[<span class="keyword">count</span>] = item;</span><br><span class="line">	<span class="keyword">count</span> = (<span class="keyword">count</span>+<span class="number">1</span>)%BUFFER_SIZE;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	ReleaseMutex(mutex);</span><br><span class="line">	ReleaseSemaphore(full,<span class="number">1</span>,<span class="keyword">NULL</span>);</span><br><span class="line">	printf(<span class="string">"now release in insert\n"</span>);</span><br><span class="line">	<span class="keyword">if</span>(state)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向buffer中删除元素函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> remove_item(buffer_item *item)&#123;</span><br><span class="line"></span><br><span class="line">	WaitForSingleObject(full,INFINITE);</span><br><span class="line">	WaitForSingleObject(mutex,INFINITE);</span><br><span class="line">	<span class="keyword">int</span> state = <span class="number">0</span>;</span><br><span class="line">	printf(<span class="string">"now count is %d in remove\n"</span>,<span class="keyword">count</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">count</span>&gt;<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">count</span> = <span class="keyword">count</span>-<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">count</span> = <span class="number">4</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(buffer[<span class="keyword">count</span>]!=-<span class="number">1</span>)&#123;</span><br><span class="line">	buffer[<span class="keyword">count</span>] = -<span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		state = <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	ReleaseMutex(mutex);</span><br><span class="line">	ReleaseSemaphore(empty,<span class="number">1</span>,<span class="keyword">NULL</span>);</span><br><span class="line">	printf(<span class="string">"now release in remove\n"</span>);</span><br><span class="line">	<span class="keyword">if</span>(state)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//生产者进程函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> *producer(<span class="keyword">void</span> *param)&#123;</span><br><span class="line"></span><br><span class="line">	buffer_item randb;</span><br><span class="line">    srand((unsigned)time(<span class="keyword">NULL</span>));</span><br><span class="line">	<span class="keyword">while</span>(<span class="keyword">TRUE</span>)&#123;</span><br><span class="line">		</span><br><span class="line">		randb = rand();</span><br><span class="line">		sleep(rand()%<span class="number">1000</span>);</span><br><span class="line">		printf(<span class="string">"now produce want to produce %d \n"</span>,randb);</span><br><span class="line">		<span class="keyword">if</span>(insert_item(randb))&#123;</span><br><span class="line">			printf(<span class="string">"report error condition of producer\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			printf(<span class="string">"producer produced %d\n"</span>,randb);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//消费者进程函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> *consumer(<span class="keyword">void</span> *param)&#123;</span><br><span class="line"></span><br><span class="line">	buffer_item randb;</span><br><span class="line">	sleep(<span class="number">1000</span>);</span><br><span class="line">	srand((unsigned)time(<span class="keyword">NULL</span>));</span><br><span class="line">	<span class="keyword">while</span>(<span class="keyword">TRUE</span>)&#123;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">		randb= rand();</span><br><span class="line">		sleep(rand()%<span class="number">1000</span>);</span><br><span class="line">		printf(<span class="string">"now consume want to consume %d \n"</span>,randb);</span><br><span class="line">		<span class="keyword">if</span>(remove_item(&amp;randb))</span><br><span class="line">			printf(<span class="string">"report error condition of consume\n"</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			printf(<span class="string">"consume consumed %d\n"</span>,randb);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//mian函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	mutex = CreateMutex(<span class="keyword">NULL</span>,<span class="keyword">FALSE</span>,<span class="keyword">NULL</span>);</span><br><span class="line">	empty = CreateSemaphore(<span class="keyword">NULL</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="keyword">NULL</span>);</span><br><span class="line">	full = CreateSemaphore(<span class="keyword">NULL</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="keyword">NULL</span>);</span><br><span class="line">	DWORD ThreadIdOfConsumer;</span><br><span class="line">	DWORD ThreadIdOfProducer;</span><br><span class="line">	HANDLE ThreadHandleOfConsumer;</span><br><span class="line">	HANDLE ThreadHandleOfProducer;</span><br><span class="line">	<span class="keyword">int</span> Param = <span class="number">10</span>;</span><br><span class="line">	</span><br><span class="line">	ThreadHandleOfConsumer= CreateThread(</span><br><span class="line">								<span class="keyword">NULL</span>,</span><br><span class="line">								<span class="number">0</span>,</span><br><span class="line">								&amp;consumer,</span><br><span class="line">								&amp;Param,</span><br><span class="line">								<span class="number">0</span>,</span><br><span class="line">								&amp;ThreadIdOfConsumer);</span><br><span class="line">								</span><br><span class="line">	ThreadHandleOfProducer= CreateThread(</span><br><span class="line">								<span class="keyword">NULL</span>,</span><br><span class="line">								<span class="number">0</span>,</span><br><span class="line">								&amp;producer,</span><br><span class="line">								&amp;Param,</span><br><span class="line">								<span class="number">0</span>,</span><br><span class="line">								&amp;ThreadIdOfProducer);</span><br><span class="line">								</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(ThreadHandleOfConsumer!=<span class="keyword">NULL</span>&amp;&amp;ThreadHandleOfProducer!=<span class="keyword">NULL</span>)&#123;</span><br><span class="line">		sleep(<span class="number">5000</span>);</span><br><span class="line">		TerminateThread(ThreadHandleOfConsumer,<span class="number">0</span>);</span><br><span class="line">		TerminateThread(ThreadHandleOfProducer,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	CloseHandle(ThreadHandleOfConsumer);</span><br><span class="line">	CloseHandle(ThreadHandleOfProducer);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>原谅我把全部写在一起了。。不过你们能懂就好啊</p>
@@ -110,14 +121,9 @@
 </ul>
 <hr>
 <p>最后，假如有人要写类似的可以做个参考吧，那些线程啥的用封装好的用习惯了，刚开始用基层的真还有点不习惯呢。百忙花个时间来作个死。。你猜下次某课实验是啥~~</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -125,120 +131,43 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://github.com/1948448114/1948448114.github.io/2015/05/10/生产者-消费者编程实现/" data-title="生产者-消费者编程实现 | SOLE" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/08/linux内核编译记/" title="linux内核编译记" itemprop="url">linux内核编译记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Liang Jie" target="_blank" itemprop="author">Liang Jie</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-08T02:12:01.000Z" itemprop="datePublished"> 发表于 2015-05-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>前段时间学校某课程（你猜啥课程~）要求进行简单的linux内核编译，并添加自己的系统调用，对于Linux小白来说这可不是件简单的事，的确话费不少时间和精力。趁此博客终于过了之际，来记录一下~</p>
-<h2 id="0x01_实验前的准备">0x01 实验前的准备</h2><p>环境说明：</p>
-<ul>
-<li>Ubuntu10.04(过高版本刚开始编译各种错误)</li>
-<li>linux-2.6.39(差不多这个版本编译起来成功概率大点吧oo)</li>
-</ul>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> install build-essential kernel-<span class="package"><span class="keyword">package</span> <span class="title">libncurses5</span>-<span class="title">dev</span> <span class="title">libqt3</span>-<span class="title">headers</span></span></span><br></pre></td></tr></table></figure>
-<p>工具说明：</p>
-<ul>
-<li>build-essential  (基本的编程库（gcc, make等）</li>
-<li>kernel-package   (Debian 系统里生成 kernel-image 的一些配置文件和工具)</li>
-<li>libncurses5-dev  (meke menuconfig要调用的）</li>
-<li>libqt3-headers   (make xconfig要调用的）-&gt;这个应该是没有用到的，至少目前是。。</li>
-</ul>
-<p>下载内核源代码：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//www.kernel.org/pub/linux/kernel/linux-2.6.39.tar.bz2</span></span><br><span class="line">tar -jxvf linux-<span class="number">2.6</span>.<span class="number">39</span><span class="class">.tar</span><span class="class">.bz2</span></span><br></pre></td></tr></table></figure>
-<p>说明：因为我下载的是tar.bz2格式的文件，所以解压命令参数是这个，如果下载的是不同格式，解压命令可能不同将内核文件解压到usr/src下，自动生成文件夹linux-2.6.39</p>
-<h2 id="0x02_添加系统调用">0x02 添加系统调用</h2><h3 id="step1">step1</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> gedit <span class="regexp">/usr/</span>src<span class="regexp">/linux-2.6.39/</span>kernel/sys.c </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">asmlinkage <span class="typename">int</span> sys_mycall(<span class="typename">int</span> number) &#123;</span><br><span class="line">      printk(KERN_EMERG <span class="string">"hello, world"</span>);    </span><br><span class="line">      <span class="keyword">return</span> number;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>打开sys.c文件，在最后添加这样一个函数(最好加上KERN_EMERG，这个表明你的printk优先级较高，不然很有可能在后面看不到想看到的结果</p>
-<h3 id="step2">step2</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit <span class="regexp">/usr/</span>src<span class="regexp">/linux-2.6.39/</span>arch<span class="regexp">/x86/</span>kernel<span class="regexp">/syscall_table_32.S</span></span><br></pre></td></tr></table></figure>
-<p>这里我们将223行.long sys_ni_syscall改为.long sys_mycall<br>名称和刚刚定义的函数对应，格式自行模仿~</p>
-<h3 id="step3">step3</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit <span class="regexp">/usr/</span>src<span class="regexp">/linux-2.6.39/</span>arch<span class="regexp">/x86/i</span>nclude<span class="regexp">/asm/u</span>nistd_32.h</span><br></pre></td></tr></table></figure>
-<p>增加一行，对应上面的223</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">define</span> <span class="title">__NR_mycall</span>  223</span></span><br></pre></td></tr></table></figure>
-<p>名称同样也是对应的</p>
-<h2 id="0x03_开始编译啦">0x03 开始编译啦</h2><h3 id="step1-1">step1</h3><p>把正在使用中的内核配置文件/boot/linux-2.6.39-generic 拷到/usr/src/linux-2.6.39/.config目录下</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp <span class="regexp">/boot/</span>config-<span class="number">2.6</span>.<span class="number">32</span>-<span class="number">21</span>-generic  <span class="regexp">/usr/</span>src<span class="regexp">/linux-2.6.39/</span>.config</span><br></pre></td></tr></table></figure>
-<p>我这个版本自带内核版本是3.6.32-21，大家的可以去boot/目录下查看</p>
-<h3 id="step2-1">step2</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span> menuconfig</span><br></pre></td></tr></table></figure>
-<p>终端会弹出一个配置界面<br>注意主菜单最后有两项：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">load <span class="tag">a</span> kernel configuration...</span><br><span class="line">save <span class="tag">a</span> kernel configuration...</span><br></pre></td></tr></table></figure>
-<p>先选第一项load ….，意思是，利用当前的内核配置详单来设置将要编译的内核，然后选save这一项保存，最后退出配置界面。</p>
-<h3 id="step3-1">step3</h3><p>执行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">make</span> mrproper</span><br></pre></td></tr></table></figure></p>
-<p>(清除以前曾经编译过的旧文件，如果你是第一次编译,可不执行)</p>
-<p>执行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">make</span> -j2</span><br></pre></td></tr></table></figure></p>
-<p>然后：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make <span class="keyword">install</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">make</span> modules  （编译模块）</span><br><span class="line">sudo <span class="built_in">make</span> modules_install  （安装模块）</span><br></pre></td></tr></table></figure>
-<p>最后创建initrd文件：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkinitramfs -o /boot/initrd<span class="class">.img-2</span>.<span class="number">6.39</span></span><br></pre></td></tr></table></figure></p>
-<p>执行<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>-grub2</span><br></pre></td></tr></table></figure></p>
-<p>这样刚编译成功的内核就加入到了grub文件中，也就是可以启动了~</p>
-<p>打开grub.cfg文件，将timeout改为10，这样启动时就有十秒时间来选择启动哪个内核了。</p>
-<p>这个执行完，按理说编译应该成功了，但是你启动会提示你有错误，启动不了，这样你可以进入以前内核，执行下列命令，就可以正常启动了（所以说不如第一次编译完就执行这些命令，要是非要看看它是怎么抽风拒绝启动的，倒是也可以尝试一下哇）</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /<span class="keyword">boot</span></span><br><span class="line">cp initrd.img-2.6.39 initrd-2.6.39.old (先做一个备份以防万一，哈哈)</span><br><span class="line">depmod -a</span><br><span class="line"><span class="keyword">update</span>-initramfs -k 2.6.39 -c</span><br><span class="line"><span class="keyword">cd</span> /tmp</span><br><span class="line">gzip -dc /<span class="keyword">boot</span>/initrd.img-2.6.39| cpio -id</span><br><span class="line">touch lib/modules/2.6.39/modules.dep</span><br><span class="line">find ./ | cpio -<span class="keyword">H</span> newc -o &gt; /<span class="keyword">boot</span>/initrd.img-2.6.39.new</span><br><span class="line">gzip /<span class="keyword">boot</span>/initrd.img-2.6.39.new</span><br><span class="line"><span class="keyword">cd</span> /<span class="keyword">boot</span></span><br><span class="line">mv initrd.img-2.6.39.new.gz initrd.img-2.6.39</span><br></pre></td></tr></table></figure>
-<p>以上所以命令只针对我这个内核版本，如若是其他版本，可以照这个更改~~</p>
-<h2 id="0x04_编写测试函数及总结">0x04 编写测试函数及总结</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  syscall(<span class="number">223</span>,<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>写完这个测试函数，再用gcc命令编译一下，再dmesg -c一下，你猜会看到啥？哈哈，就是熟悉的“hello world”，听说你不信？那就赶紧自己去试试吧~</p>
-<h2 id="结语">结语</h2><p>杀死无数脑细胞的任务总算完成了，对了，要是第一次编译成功后，后面修改了系统调用后，直接从make modules开始做起就好，这样就能省不少时间，不然那个编译时间。。。谁用谁知道啊真的是。。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/05/08/linux内核编译记/"  title="linux内核编译记">
+ <strong>下一篇：</strong><br/> 
+ <span>linux内核编译记
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
+	
 
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows线程"><span class="toc-number">1.</span> <span class="toc-text">windows线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux"><span class="toc-number">2.</span> <span class="toc-text">Linux</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -357,12 +286,69 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
 
@@ -423,4 +409,4 @@ $(document).ready(function(){
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
